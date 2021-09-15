@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EscritorFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clWritter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="100dp"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textNickname"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="@id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textType"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textNickname"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textCounter"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textType"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/delete"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/update"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <Button
+            android:id="@+id/newArticle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/article"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/update"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/imageSelect"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newArticle" />
+
+        <ImageView
+            android:id="@+id/btnLeft"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelect"
+            app:layout_constraintTop_toBottomOf="@+id/newArticle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageSelect" />
+
+        <ImageView
+            android:id="@+id/btnRight"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelect"
+            app:layout_constraintTop_toBottomOf="@+id/newArticle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageSelect" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageSelect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clReader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageViewReader"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="100dp"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textNicknameReader"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageViewReader"
+            app:layout_constraintTop_toTopOf="@id/imageViewReader"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textTypeReader"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageViewReader"
+            app:layout_constraintTop_toBottomOf="@+id/textNicknameReader"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textCounterReader"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@id/imageViewReader"
+            app:layout_constraintTop_toBottomOf="@+id/textTypeReader"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+        <ImageView
+            android:id="@+id/imageSelectReader"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewReader" />
+
+        <ImageView
+            android:id="@+id/btnLeftReader"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelectReader"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewReader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageSelectReader" />
+
+        <ImageView
+            android:id="@+id/btnRightReader"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelectReader"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewReader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageSelectReader" />
+
+        <TextView
+            android:id="@+id/txtTitleReader"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageSelectReader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

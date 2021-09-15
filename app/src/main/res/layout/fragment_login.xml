@@ -8,7 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clBigImage"
+        android:id="@+id/clLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,6 +30,8 @@
            android:id="@+id/edtUser"
            android:layout_width="300dp"
            android:layout_height="wrap_content"
+           android:hint="@string/user"
+           android:inputType="text"
            app:layout_constraintTop_toBottomOf="@+id/loginImage"
            app:layout_constraintBottom_toBottomOf="@+id/edtPassword"
            app:layout_constraintEnd_toEndOf="@+id/loginImage"
@@ -39,6 +41,8 @@
             android:id="@+id/edtPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/edtUser"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/edtUser"
@@ -54,8 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edtPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

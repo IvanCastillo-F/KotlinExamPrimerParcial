@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
+    <string name="password">Type ur Password</string>
+    <string name="user">Type ur User</string>
+    <string name="delete">DELETE</string>
+    <string name="update">UPDATE</string>
+    <string name="article">NEW ARTICLE</string>
 </resources>

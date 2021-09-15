@@ -31,7 +31,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         initView(view)
 
         preferences = activity?.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE)!!
-
         user = getUser()
 
         return view
@@ -53,12 +52,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         edtUser.addTextChangedListener(textWatcherlogin)
         edtPassword.addTextChangedListener(textWatcherpassword)
 
+
+
+
         btnLogin.setOnClickListener {
 
             user.apply {
-                loginType = user.setLogintype(edtUser.text.toString())
+                loginType = setLogintype(edtUser.text.toString())
                 username = edtUser.text.toString()
                 password = edtPassword.text.toString()
+                pImage = setImage(edtUser.text.toString())
             }
 
             doLogin()
@@ -73,6 +76,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            user.apply {
+                username = edtUser.text.toString()
+                password = edtPassword.text.toString()
+                pImage = setImage(edtUser.text.toString())
+            }
+            user.validate()?.let {
+                loginImage.setImageResource(user.pImage!!)
+            }
 
         }
 
@@ -91,6 +102,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
+            user.apply {
+                username = edtUser.text.toString()
+                password = edtPassword.text.toString()
+                pImage = setImage(edtUser.text.toString())
+            }
+            user.validate()?.let {
+                loginImage.setImageResource(user.pImage!!)
+            }
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -131,8 +150,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         } ?: User()
 
+
     private fun replaceFragment(fragment: Fragment) {
-        val someFragment: Fragment = fragment
+        val fragment: Fragment = fragment
         val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
        transaction.setCustomAnimations(
             R.anim.slide_in_right,
@@ -141,7 +161,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             R.anim.slide_out_right)
         transaction.replace(
             R.id.container,
-            someFragment
+            fragment
         )
 
         transaction.addToBackStack(null)

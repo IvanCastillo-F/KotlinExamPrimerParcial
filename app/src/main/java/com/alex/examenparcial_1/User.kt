@@ -8,15 +8,16 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class User( var username: String = "",
             var password: String = "",
-            var loginType: LoginType? = null): Parcelable {
+            var loginType: LoginType? = null,
+            var pImage: Int? = null): Parcelable {
     companion object {
-    val users = arrayOf(                                //tipo de logeo             // user level
-        User("alex", "valorant", LoginType.READER),
-        User("Paka", "gorra", LoginType.READER),
-        User("Poncho", "musicaelectrica", LoginType.READER),
-        User("admin1", "123", LoginType.WRITTER),
-        User("admin2", "123", LoginType.WRITTER),
-        User("admin3", "123", LoginType.WRITTER),
+    val users = arrayOf(
+        User("alex", "valorant", LoginType.READER,R.drawable.ic_user),
+        User("Paka", "gorra", LoginType.READER,R.drawable.ic_user__1_),
+        User("Poncho", "musicaelectrica", LoginType.READER,R.drawable.ic_user__2_),
+        User("admin1", "123", LoginType.WRITTER,R.drawable.ic_user__3_),
+        User("admin2", "123", LoginType.WRITTER,R.drawable.ic_user__4_),
+        User("admin3", "123", LoginType.WRITTER,R.drawable.ic_user__5_)
     ) }
 
     fun validate() = users.firstOrNull {
@@ -32,7 +33,20 @@ class User( var username: String = "",
             lo =LoginType.WRITTER
 
         return lo
+    }
 
+    fun setImage(a :String):Int {
+        val lo : Int = when (a) {
+            in "alex" -> R.drawable.ic_user
+            in "Paka" -> R.drawable.ic_user__1_
+            in "Poncho" -> R.drawable.ic_user__2_
+            in "admin1" -> R.drawable.ic_user__3_
+            in "admin2" -> R.drawable.ic_user__4_
+            in "admin3" -> R.drawable.ic_user__5_
+            else -> 0
+        }
+
+        return lo
     }
 
 }

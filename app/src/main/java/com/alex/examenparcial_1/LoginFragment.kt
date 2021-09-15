@@ -78,7 +78,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         override fun afterTextChanged(s: Editable?) {
 
-            edtPassword.isEnabled = true
+            edtPassword.isEnabled = s != null
 
         }
     }
@@ -95,7 +95,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         override fun afterTextChanged(s: Editable?) {
 
-            btnLogin.isEnabled = true
+            btnLogin.isEnabled = s != null
         }
     }
 
@@ -134,11 +134,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun replaceFragment(fragment: Fragment) {
         val someFragment: Fragment = fragment
         val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-       /* transaction.setCustomAnimations(
+       transaction.setCustomAnimations(
             R.anim.slide_in_right,
             R.anim.slide_out_left,
             R.anim.slide_in_left,
-            R.anim.slide_out_right)*/
+            R.anim.slide_out_right)
         transaction.replace(
             R.id.container,
             someFragment

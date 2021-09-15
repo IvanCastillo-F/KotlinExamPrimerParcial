@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/drawable/ic_empty_hearth.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/drawable/ic_flecha_derecha.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/drawable/ic_flecha_izquierda.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/layout/fragment_escritor.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/maste/Documents/Universidad/Android/KotlinExamPrimerParcial/app/src/main/res/layout/fragment_login.xml" value="0.25833333333333336" />

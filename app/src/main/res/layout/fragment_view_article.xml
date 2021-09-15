@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ViewArticleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clListWri"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageSelectWri"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnLeft"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_flecha_izquierda"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelectWri"
+            app:layout_constraintEnd_toStartOf="@+id/imageSelectWri"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageSelectWri" />
+
+        <ImageView
+            android:id="@+id/btnRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_flecha_derecha"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelectWri"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageSelectWri"
+            app:layout_constraintTop_toTopOf="@+id/imageSelectWri" />
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="250dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            app:layout_constraintTop_toBottomOf="@+id/imageSelectWri"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editDesc"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/description"
+            app:layout_constraintTop_toBottomOf="@+id/editTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/create"
+            app:layout_constraintTop_toBottomOf="@+id/editDesc"
+            app:layout_constraintEnd_toStartOf="@+id/btnCreate"
+            app:layout_constraintStart_toStartOf="@+id/editDesc"/>
+
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/edit"
+            app:layout_constraintTop_toBottomOf="@+id/editDesc"
+            app:layout_constraintStart_toEndOf="@+id/btnEdit"
+            app:layout_constraintEnd_toEndOf="@+id/editDesc"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clListReader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageHearth"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_empty_hearth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageSelectRead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/viewTitle"
+            android:layout_width="250dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            app:layout_constraintTop_toBottomOf="@+id/imageSelectRead"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/viewDesc"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/description"
+            app:layout_constraintTop_toBottomOf="@+id/viewTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/done"
+            app:layout_constraintTop_toBottomOf="@+id/viewDesc"
+            app:layout_constraintEnd_toEndOf="@+id/viewDesc"
+            app:layout_constraintStart_toStartOf="@+id/viewDesc"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

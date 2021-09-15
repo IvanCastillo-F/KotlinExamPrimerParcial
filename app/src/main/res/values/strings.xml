@@ -8,4 +8,9 @@
     <string name="delete">DELETE</string>
     <string name="update">UPDATE</string>
     <string name="article">NEW ARTICLE</string>
+    <string name="title">Type ur Title</string>
+    <string name="description">Type ur description</string>
+    <string name="create">CREATE</string>
+    <string name="edit">EDIT</string>
+    <string name="done">DONE</string>
 </resources>

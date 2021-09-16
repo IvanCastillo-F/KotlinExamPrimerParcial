@@ -90,7 +90,7 @@
             />
 
         <ImageView
-            android:id="@+id/imageSelect"
+            android:id="@+id/imageSelected"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
@@ -103,27 +103,27 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/ic_flecha_izquierda"
-            app:layout_constraintBottom_toBottomOf="@+id/imageSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelected"
             app:layout_constraintTop_toBottomOf="@+id/newArticle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageSelect" />
+            app:layout_constraintEnd_toStartOf="@+id/imageSelected" />
 
         <ImageView
             android:id="@+id/btnRight"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/ic_flecha_derecha"
-            app:layout_constraintBottom_toBottomOf="@+id/imageSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSelected"
             app:layout_constraintTop_toBottomOf="@+id/newArticle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageSelect" />
+            app:layout_constraintStart_toEndOf="@+id/imageSelected" />
 
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageSelect"
+            app:layout_constraintTop_toBottomOf="@+id/imageSelected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />

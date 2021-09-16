@@ -13,6 +13,6 @@
     <string name="create">CREATE</string>
     <string name="edit">EDIT</string>
     <string name="done">DONE</string>
-    <string name="lector">Se ha ingresado con un usuario Lector</string>
-    <string name="escritor">Se ha ingresado con un usuario Escritor</string>
+    <string name="lector">Lector</string>
+    <string name="escritor">Escritor</string>
 </resources>

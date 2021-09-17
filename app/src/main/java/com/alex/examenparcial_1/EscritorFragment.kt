@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.alex.examenparcial_1.Article.Companion.articles
 import com.squareup.moshi.Moshi
 
 class EscritorFragment : Fragment(R.layout.fragment_escritor) {
@@ -22,21 +23,38 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
     private val USER_PREFS = "USER_PREFS"
     private lateinit var preferences: SharedPreferences
     private val moshi = Moshi.Builder().build()
-    private lateinit var user: User
+    private lateinit var objUser: User
+    private var writedArticle = mutableListOf<Article>()
+    private var writerArticles = mutableListOf<Article>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view = inflater.inflate(R.layout.fragment_escritor, container, false)
 
         preferences = activity?.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE)!!
-        user = getUser()
+        objUser = getUser()
+        writedArticle = getWritedArticles()
+        if (writedArticle.isEmpty())
+            writedArticle.addAll(articles)
+
+        if(objUser.loginType == LoginType.WRITER){
+            writedArticle.forEachIndexed { index, article ->
+                if (objUser.username == writedArticle[index].writter){
+                    writerArticles.add(writedArticle[index])
+                }
+            }
+
+        }
+
+
+
 
         initView(view)
 
         return view
     }
 
-    private lateinit var clWritter: ConstraintLayout
+    private lateinit var clWriter: ConstraintLayout
     private lateinit var clReader: ConstraintLayout
 
     private lateinit var imageView: ImageView
@@ -62,10 +80,18 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
     private lateinit var txtTitleReader: TextView
     private lateinit var imageHearth: ImageView
 
+    var inum: Int = 0
+
+    var limitaw: Int = 0
+    var limitbw: Int =  0
+
+    var limita: Int = 0
+    var limitb: Int =  0
+
 
     private fun initView(view: View){
 
-        clWritter = view.findViewById(R.id.clWritter)
+        clWriter = view.findViewById(R.id.clWritter)
         clReader = view.findViewById(R.id.clReader)
 
         imageView = view.findViewById(R.id.imageView)
@@ -90,34 +116,120 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         txtTitleReader = view.findViewById(R.id.txtTitleReader)
         imageHearth = view.findViewById(R.id.imageHearth)
 
-        imageView.setImageResource(user.pImage!!)
-        imageViewReader.setImageResource(user.pImage!!)
+        imageView.setImageResource(objUser.pImage!!)
+        imageViewReader.setImageResource(objUser.pImage!!)
 
-        textNickname.text = user.username
-        textNicknameReader.text = user.username
+        textNickname.text = objUser.username
+        textNicknameReader.text = objUser.username
 
-        user.loginType?.let { textType.setText(it.text) }
-        user.loginType?.let { textTypeReader.setText(it.text) }
+        objUser.loginType?.let { textType.setText(it.text) }
+        objUser.loginType?.let { textTypeReader.setText(it.text) }
 
-        when (user.loginType) {
+        when (objUser.loginType) {
             LoginType.READER -> {
                 initReader()
             }
-            LoginType.WRITTER  -> {
+            LoginType.WRITER  -> {
                 initWritter()
+            }
+        }
+        limita = writedArticle.size - 2
+        limitb = writedArticle.size - 1
+
+        limitaw = writerArticles.size - 2
+        limitbw = writerArticles.size - 1
+
+        btnRightReader.setOnClickListener {  next() }
+        btnLeftReader.setOnClickListener { previous() }
+
+        btnRight.setOnClickListener { nextwriter() }
+        btnLeft.setOnClickListener { previouswriter() }
+
+    }
+
+    private fun next(){
+        when(inum){
+            in 0..limita ->
+            {
+                inum++
+                imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
+                txtTitleReader.text = writedArticle[inum].Tittle
+
+            }
+            else ->
+            {
+                inum = 0
             }
         }
     }
 
+    private fun nextwriter(){
+        when(inum){
+            in 0..limitaw ->
+            {
+                inum++
+                imageSelected.setImageResource(writerArticles[inum].aImage!!)
+                txtTitle.text = writerArticles[inum].Tittle
+
+            }
+            else ->
+            {
+                inum = 0
+            }
+        }
+    }
+
+    private fun previouswriter(){
+        when(inum){
+            in 1..limitbw ->
+            {
+                inum--
+                imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
+                txtTitle.text = writerArticles[inum].Tittle
+
+            }
+            else ->
+            {
+                inum = limitbw
+            }
+        }
+    }
+
+    private fun previous(){
+        when(inum){
+            in 1..limitb ->
+            {
+                inum--
+                imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
+                txtTitleReader.text = writedArticle[inum].Tittle
+            }
+            else ->
+            {
+                inum = limitb
+            }
+        }
+    }
+
+
     private fun initReader(){
         clReader.isVisible = true
-        clWritter.isGone = true
+        clWriter.isGone = true
     }
 
     private fun initWritter(){
-        clWritter.isVisible = true
+        clWriter.isVisible = true
         clReader.isGone = true
     }
+
+
+    private fun getWritedArticles() =
+        preferences.getString("WRITED_PREFS", null)?.let {
+            return@let try {
+                moshi.adapter(mutableListOf<Article>()::class.java).fromJson(it)
+            } catch (e: Exception) {
+                mutableListOf()
+            }
+        } ?: mutableListOf()
 
 
     private fun getUser() =

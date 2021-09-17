@@ -15,9 +15,9 @@ class User( var username: String = "",
         User("alex", "valorant", LoginType.READER,R.drawable.ic_user),
         User("Paka", "gorra", LoginType.READER,R.drawable.ic_user__1_),
         User("Poncho", "musicaelectrica", LoginType.READER,R.drawable.ic_user__2_),
-        User("admin1", "123", LoginType.WRITTER,R.drawable.ic_user__3_),
-        User("admin2", "123", LoginType.WRITTER,R.drawable.ic_user__4_),
-        User("admin3", "123", LoginType.WRITTER,R.drawable.ic_user__5_)
+        User("admin1", "123", LoginType.WRITER,R.drawable.ic_user__3_),
+        User("admin2", "123", LoginType.WRITER,R.drawable.ic_user__4_),
+        User("admin3", "123", LoginType.WRITER,R.drawable.ic_user__5_)
     ) }
 
     fun validate() = users.firstOrNull {
@@ -26,11 +26,11 @@ class User( var username: String = "",
     }
 
     fun setLogintype(a :String):LoginType {
-       var lo = LoginType.WRITTER
+       var lo = LoginType.WRITER
         if(a == "alex" || a == "Paka" || a =="Poncho")
             lo = LoginType.READER
         else if(a == "admin1"|| a == "admin2" || a == "admin3")
-            lo =LoginType.WRITTER
+            lo =LoginType.WRITER
 
         return lo
     }

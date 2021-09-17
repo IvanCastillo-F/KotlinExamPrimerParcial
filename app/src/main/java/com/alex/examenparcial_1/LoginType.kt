@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 enum class LoginType(val text: Int): Parcelable {
 
     READER(R.string.lector),
-    WRITTER(R.string.escritor)
+    WRITER(R.string.escritor)
 
 }

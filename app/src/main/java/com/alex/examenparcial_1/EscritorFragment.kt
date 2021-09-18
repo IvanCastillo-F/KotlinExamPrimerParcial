@@ -2,25 +2,27 @@ package com.alex.examenparcial_1
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Location
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentTransaction
 import com.alex.examenparcial_1.Article.Companion.articles
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.adapter
 
 class EscritorFragment : Fragment(R.layout.fragment_escritor) {
 
     private val MY_PREFERENCES = "MY_PREFERENCES"
     private val USER_PREFS = "USER_PREFS"
+    private val WRITTEN_PREFS = "WRITTEN_PREFS"
     private lateinit var preferences: SharedPreferences
     private val moshi = Moshi.Builder().build()
     private lateinit var objUser: User
@@ -34,7 +36,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         preferences = activity?.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE)!!
         objUser = getUser()
         writedArticle = getWritedArticles()
-        if (writedArticle.isEmpty())
+       if (writedArticle.isEmpty())
             writedArticle.addAll(articles)
 
         if(objUser.loginType == LoginType.WRITER){
@@ -125,6 +127,8 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         objUser.loginType?.let { textType.setText(it.text) }
         objUser.loginType?.let { textTypeReader.setText(it.text) }
 
+        textCounter.text = "Counter writed: " + writerArticles.size.toString()
+
         when (objUser.loginType) {
             LoginType.READER -> {
                 initReader()
@@ -144,6 +148,36 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
 
         btnRight.setOnClickListener { nextwriter() }
         btnLeft.setOnClickListener { previouswriter() }
+
+        delete.setOnClickListener(){
+            writerArticles[inum].id?.let { it1 -> writedArticle.removeAt(it1) }
+            saveArticles(writedArticle)
+        }
+
+        update.setOnClickListener(){
+            replaceFragment(ViewArticleFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("key", writerArticles[inum])
+                }
+            })
+        }
+
+        newArticle.setOnClickListener(){
+            replaceFragment(ViewArticleFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("key", writerArticles[inum])
+                }
+            })
+        }
+
+        imageSelectReader.setOnClickListener(){
+            replaceFragment(ViewArticleFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("key", writedArticle[inum])
+                }
+            })
+
+        }
 
     }
 
@@ -210,6 +244,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         }
     }
 
+    private fun showMessege(message: String) = Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
     private fun initReader(){
         clReader.isVisible = true
@@ -221,15 +256,42 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         clReader.isGone = true
     }
 
+    private fun replaceFragment(fragment: Fragment) {
+        val fragment: Fragment = fragment
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.setCustomAnimations(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left,
+            R.anim.slide_in_left,
+            R.anim.slide_out_right)
+        transaction.replace(
+            R.id.container,
+            fragment
+        )
+
+        transaction.addToBackStack(null)
+
+        transaction.commit()
+    }
+
 
     private fun getWritedArticles() =
-        preferences.getString("WRITED_PREFS", null)?.let {
+        preferences.getString("WRITTEN_PREFS", null)?.let {
             return@let try {
-                moshi.adapter(mutableListOf<Article>()::class.java).fromJson(it)
+                val listMyData = Types.newParameterizedType(List::class.java, Article::class.java)
+                moshi.adapter<MutableList<Article>>(listMyData).fromJson(it)
             } catch (e: Exception) {
                 mutableListOf()
             }
         } ?: mutableListOf()
+
+    private fun saveArticles(arti: MutableList<Article>) {
+
+        val listMyData = Types.newParameterizedType(List::class.java, Article::class.java)
+        val jsonAdapter = moshi.adapter<List<Article>>(listMyData)
+        val json = jsonAdapter.toJson(arti)
+        preferences.edit().putString("WRITTEN_PREFS",json).apply()
+    }
 
 
     private fun getUser() =

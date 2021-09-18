@@ -72,7 +72,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/create"
+            android:hint="@string/edit"
             app:layout_constraintTop_toBottomOf="@+id/editDesc"
             app:layout_constraintEnd_toStartOf="@+id/btnCreate"
             app:layout_constraintStart_toStartOf="@+id/editDesc"/>
@@ -82,7 +82,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/edit"
+            android:hint="@string/create"
             app:layout_constraintTop_toBottomOf="@+id/editDesc"
             app:layout_constraintStart_toEndOf="@+id/btnEdit"
             app:layout_constraintEnd_toEndOf="@+id/editDesc"/>

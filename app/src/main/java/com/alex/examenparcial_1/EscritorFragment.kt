@@ -127,7 +127,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         objUser.loginType?.let { textType.setText(it.text) }
         objUser.loginType?.let { textTypeReader.setText(it.text) }
 
-        textCounter.text = "Counter writed: " + writerArticles.size.toString()
+        textCounter.text = "Counter writed: " + (writerArticles.size - 1).toString()
 
         when (objUser.loginType) {
             LoginType.READER -> {
@@ -152,9 +152,12 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         delete.setOnClickListener(){
             writerArticles[inum].id?.let { it1 -> writedArticle.removeAt(it1) }
             saveArticles(writedArticle)
+            showMessege("Element eliminated")
         }
 
         update.setOnClickListener(){
+            saveArticles(writedArticle)
+            saveArticle(writedArticle[writedArticle[inum].id!!])
             replaceFragment(ViewArticleFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("key", writerArticles[inum])
@@ -163,6 +166,8 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         }
 
         newArticle.setOnClickListener(){
+            saveArticles(writedArticle)
+            saveArticle(writedArticle[writedArticle[inum].id!!])
             replaceFragment(ViewArticleFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("key", writerArticles[inum])
@@ -171,6 +176,8 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         }
 
         imageSelectReader.setOnClickListener(){
+            saveArticles(writedArticle)
+            saveArticle(writedArticle[inum])
             replaceFragment(ViewArticleFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("key", writedArticle[inum])
@@ -293,6 +300,9 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         preferences.edit().putString("WRITTEN_PREFS",json).apply()
     }
 
+    private fun saveArticle(article: Article) {
+        preferences.edit().putString("ARTICLE_PREFS",moshi.adapter(Article::class.java).toJson(article)).apply()
+    }
 
     private fun getUser() =
         preferences.getString("USER_PREFS", null)?.let {

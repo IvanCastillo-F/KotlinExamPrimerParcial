@@ -159,9 +159,9 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         btnLeft.setOnClickListener { previouswriter() }
 
         delete.setOnClickListener(){
-            if(writerArticles.size != 1 ||writerArticles.size != 0){
+            if(writerArticles.size != 1 || writerArticles.size != 0){
             writedArticle.forEach{it ->
-                if(it.id!! == writerArticles[inum].id)
+                if(it.id!! == writerArticles[inum].id&&it.Tittle!! == writerArticles[inum].Tittle)
                     article = it
             }
             writedArticle.remove(article)
@@ -247,7 +247,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
             in 1..limitbw ->
             {
                 inum--
-                imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
+                imageSelectReader.setImageResource(writerArticles[inum].aImage!!)
                 txtTitle.text = writerArticles[inum].Tittle
 
             }

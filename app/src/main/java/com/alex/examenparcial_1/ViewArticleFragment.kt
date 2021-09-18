@@ -119,7 +119,7 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
         btnEdit.setOnClickListener(){
 
             writedArticle.forEach{it ->
-                if(it.id!! == objArticle.id)
+                if(it.id!! == objArticle.id &&it.Tittle!! == objArticle.Tittle)
                     article = it
             }
             index = writedArticle.indexOf(article)

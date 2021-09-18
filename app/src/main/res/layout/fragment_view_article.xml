@@ -107,6 +107,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txtCounter"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toEndOf="@+id/imageHearth"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <ImageView
             android:id="@+id/imageSelectRead"
             android:layout_width="100dp"
@@ -137,15 +144,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btnDone"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/done"
-            app:layout_constraintTop_toBottomOf="@+id/viewDesc"
-            app:layout_constraintEnd_toEndOf="@+id/viewDesc"
-            app:layout_constraintStart_toStartOf="@+id/viewDesc"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

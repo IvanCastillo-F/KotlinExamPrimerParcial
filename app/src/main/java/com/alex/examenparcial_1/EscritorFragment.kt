@@ -27,6 +27,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
     private val moshi = Moshi.Builder().build()
     private lateinit var objUser: User
     private lateinit var article: Article
+    private var userlike = mutableListOf<String>()
     private var writedArticle = mutableListOf<Article>()
     private var writerArticles = mutableListOf<Article>()
 
@@ -48,10 +49,13 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
                     writerArticles.add(writedArticle[index])
                 }
             }
-
         }
 
-
+        counter = 0
+        writedArticle.forEach { it ->
+            if(it.liked?.contains(objUser.username) == true)
+                counter++
+        }
 
 
         initView(view)
@@ -83,9 +87,11 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
     private lateinit var btnLeftReader: ImageView
     private lateinit var btnRightReader: ImageView
     private lateinit var txtTitleReader: TextView
-    private lateinit var imageHearth: ImageView
 
     var inum: Int = 0
+    var counter: Int = 0
+    private var index : Int = 0
+    var hearthOrn = false
 
     var limitaw: Int = 0
     var limitbw: Int =  0
@@ -119,7 +125,6 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         btnLeftReader = view.findViewById(R.id.btnLeftReader)
         btnRightReader = view.findViewById(R.id.btnRightReader)
         txtTitleReader = view.findViewById(R.id.txtTitleReader)
-        imageHearth = view.findViewById(R.id.imageHearth)
 
         imageView.setImageResource(objUser.pImage!!)
         imageViewReader.setImageResource(objUser.pImage!!)
@@ -131,6 +136,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         objUser.loginType?.let { textTypeReader.setText(it.text) }
 
         textCounter.text = "Counter writed: " + (writerArticles.size - 1).toString()
+        textCounterReader.text = counter.toString()
 
         when (objUser.loginType) {
             LoginType.READER -> {
@@ -197,6 +203,10 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
 
         }
 
+
+
+
+
     }
 
     private fun next(){
@@ -206,6 +216,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
                 inum++
                 imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
                 txtTitleReader.text = writedArticle[inum].Tittle
+
 
             }
             else ->
@@ -254,6 +265,8 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
                 inum--
                 imageSelectReader.setImageResource(writedArticle[inum].aImage!!)
                 txtTitleReader.text = writedArticle[inum].Tittle
+
+
             }
             else ->
             {

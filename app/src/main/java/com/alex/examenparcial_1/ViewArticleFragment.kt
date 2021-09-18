@@ -23,6 +23,7 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
     private lateinit var objUser: User
     private lateinit var objArticle: Article
     private lateinit var article: Article
+    private var userlike = mutableListOf<String>()
     private var image = mutableListOf<Int>()
     private var writedArticle = mutableListOf<Article>()
     private val moshi = Moshi.Builder().build()
@@ -65,11 +66,12 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
     private lateinit var imageSelectRead: ImageView
     private lateinit var viewDesc: TextView
     private lateinit var viewTitle: TextView
-    private lateinit var btnDone: Button
+    private lateinit var txtCounter: TextView
     private var index : Int = 0
     var inum: Int = 0
     var limita: Int = 0
     var limitb: Int =  0
+    var hearthOrn = false
 
     private fun initView(view: View){
 
@@ -88,7 +90,7 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
         imageSelectRead = view.findViewById(R.id.imageSelectRead)
         viewDesc = view.findViewById(R.id.viewDesc)
         viewTitle = view.findViewById(R.id.viewTitle)
-        btnDone = view.findViewById(R.id.btnDone)
+        txtCounter = view.findViewById(R.id.txtCounter)
 
 
         imageSelectWri.setImageResource(objArticle.aImage!!)
@@ -99,6 +101,8 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
 
         editDesc.setText(objArticle.Descrip)
         viewDesc.text = objArticle.Descrip
+
+        txtCounter.text = objArticle.liked?.size.toString()
 
         limitb = writedArticle.size - 1
         limita = writedArticle.size - 2
@@ -132,6 +136,42 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
             writedArticle.add(article)
             saveArticles(writedArticle)
             showMessege("The element has been added")
+        }
+
+        imageHearth.setOnClickListener(){
+
+
+
+            userlike = objArticle.liked!!
+
+
+            if(hearthOrn){
+                userlike.add(objUser.username)
+                writedArticle.forEach{it ->
+                    if(it.id!! == objArticle.id)
+                        article = it
+                }
+                index = writedArticle.indexOf(article)
+                article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username,userlike)
+                writedArticle[index] = article
+                txtCounter.text = article.liked!!.size.toString()
+                imageHearth.setImageResource(R.drawable.ic_hearth)
+                saveArticles(writedArticle)
+            } else{
+                userlike.remove(objUser.username)
+                writedArticle.forEach{it ->
+                    if(it.id!! == objArticle.id)
+                        article = it
+                }
+                index = writedArticle.indexOf(article)
+                article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username,userlike)
+                writedArticle[index] = article
+                txtCounter.text = article.liked!!.size.toString()
+                imageHearth.setImageResource(R.drawable.ic_empty_hearth)
+                saveArticles(writedArticle)
+            }
+            hearthOrn = !hearthOrn
+
         }
 
 

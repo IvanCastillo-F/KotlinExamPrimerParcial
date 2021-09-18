@@ -131,8 +131,9 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
         }
 
         btnCreate.setOnClickListener(){
+            userlike.add(objUser.username)
             index = writedArticle.lastIndex + 1
-            article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username)
+            article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username,userlike)
             writedArticle.add(article)
             saveArticles(writedArticle)
             showMessege("The element has been added")

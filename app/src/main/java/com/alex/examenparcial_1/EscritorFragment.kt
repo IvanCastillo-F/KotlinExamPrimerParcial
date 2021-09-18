@@ -166,6 +166,19 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
             }
             writedArticle.remove(article)
             saveArticles(writedArticle)
+                writerArticles = mutableListOf()
+
+                if(objUser.loginType == LoginType.WRITER){
+                    writedArticle.forEachIndexed { index, article ->
+                        if (objUser.username == writedArticle[index].writter){
+                            writerArticles.add(writedArticle[index])
+                        }
+                    }
+                }
+                textCounter.text = "Counter writed: " + (writerArticles.size- 1).toString()
+                limitaw = writerArticles.size - 2
+                limitbw = writerArticles.size - 1
+
             showMessege("Element eliminated")
             }else{
                 showMessege("Is Empty!!!!")
@@ -173,13 +186,16 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         }
 
         update.setOnClickListener(){
+            if ((writerArticles.size - 1) != 0){
             saveArticles(writedArticle)
             saveArticle(writedArticle[writedArticle[inum].id!!])
             replaceFragment(ViewArticleFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("key", writerArticles[inum])
                 }
-            })
+            })}else{
+                showMessege("Add a element fist!!")
+            }
         }
 
         newArticle.setOnClickListener(){

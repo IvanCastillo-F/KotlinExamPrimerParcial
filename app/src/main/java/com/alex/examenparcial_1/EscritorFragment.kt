@@ -26,6 +26,7 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
     private lateinit var preferences: SharedPreferences
     private val moshi = Moshi.Builder().build()
     private lateinit var objUser: User
+    private lateinit var article: Article
     private var writedArticle = mutableListOf<Article>()
     private var writerArticles = mutableListOf<Article>()
 
@@ -38,6 +39,8 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         writedArticle = getWritedArticles()
        if (writedArticle.isEmpty())
             writedArticle.addAll(articles)
+
+        writerArticles = mutableListOf()
 
         if(objUser.loginType == LoginType.WRITER){
             writedArticle.forEachIndexed { index, article ->
@@ -150,9 +153,17 @@ class EscritorFragment : Fragment(R.layout.fragment_escritor) {
         btnLeft.setOnClickListener { previouswriter() }
 
         delete.setOnClickListener(){
-            writerArticles[inum].id?.let { it1 -> writedArticle.removeAt(it1) }
+            if(writerArticles.size != 1 ||writerArticles.size != 0){
+            writedArticle.forEach{it ->
+                if(it.id!! == writerArticles[inum].id)
+                    article = it
+            }
+            writedArticle.remove(article)
             saveArticles(writedArticle)
             showMessege("Element eliminated")
+            }else{
+                showMessege("Is Empty!!!!")
+            }
         }
 
         update.setOnClickListener(){

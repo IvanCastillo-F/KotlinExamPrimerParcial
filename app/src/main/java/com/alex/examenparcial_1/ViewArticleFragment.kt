@@ -7,14 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 
 class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
 
@@ -24,6 +22,9 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
     private lateinit var preferences: SharedPreferences
     private lateinit var objUser: User
     private lateinit var objArticle: Article
+    private lateinit var article: Article
+    private var image = mutableListOf<Int>()
+    private var writedArticle = mutableListOf<Article>()
     private val moshi = Moshi.Builder().build()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,8 +33,17 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
 
         preferences = activity?.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE)!!
 
+        image.add(R.drawable.ic_redbook)
+        image.add(R.drawable.ic_violetbook)
+        image.add(R.drawable.ic_bluebook)
+        image.add(R.drawable.ic_orangebook)
+        image.add(R.drawable.ic_greenbook)
+
         objUser = getUser()
         objArticle = getArticle()
+        writedArticle = getWritedArticles()
+        if (writedArticle.isEmpty())
+            writedArticle.addAll(Article.articles)
 
         initView(view)
 
@@ -56,6 +66,10 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
     private lateinit var viewDesc: TextView
     private lateinit var viewTitle: TextView
     private lateinit var btnDone: Button
+    private var index : Int = 0
+    var inum: Int = 0
+    var limita: Int = 0
+    var limitb: Int =  0
 
     private fun initView(view: View){
 
@@ -86,6 +100,9 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
         editDesc.setText(objArticle.Descrip)
         viewDesc.text = objArticle.Descrip
 
+        limitb = writedArticle.size - 1
+        limita = writedArticle.size - 2
+
         when (objUser.loginType) {
             LoginType.READER -> {
                 initReader()
@@ -95,9 +112,69 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
             }
         }
 
+        btnEdit.setOnClickListener(){
 
+            writedArticle.forEach{it ->
+                if(it.id!! == objArticle.id)
+                    article = it
+            }
+            index = writedArticle.indexOf(article)
+            article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username)
+            writedArticle[index] = article
+            saveArticles(writedArticle)
+            showMessege("The element has been edited")
+
+        }
+
+        btnCreate.setOnClickListener(){
+            index = writedArticle.lastIndex + 1
+            article = Article(index,editTitle.text.toString(),editDesc.text.toString(),image[inum],objUser.username)
+            writedArticle.add(article)
+            saveArticles(writedArticle)
+            showMessege("The element has been added")
+        }
+
+
+        btnLeft.setOnClickListener(){ previous() }
+
+        btnRight.setOnClickListener(){  next()  }
 
     }
+
+
+    private fun previous(){
+        when(inum){
+            in 1..limitb ->
+            {
+                inum--
+                imageSelectWri.setImageResource(image[inum]!!)
+
+            }
+            else ->
+            {
+                inum = limitb
+            }
+        }
+    }
+
+
+    private fun next(){
+        when(inum){
+            in 0..limita ->
+            {
+                inum++
+                imageSelectWri.setImageResource(image[inum]!!)
+
+            }
+            else ->
+            {
+                inum = 0
+            }
+        }
+    }
+
+
+    private fun showMessege(message: String) = Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
 
     private fun initReader(){
@@ -108,6 +185,15 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
     private fun initWritter(){
         clListWri.isVisible = true
         clListReader.isGone = true
+    }
+
+
+    private fun saveArticles(arti: MutableList<Article>) {
+
+        val listMyData = Types.newParameterizedType(List::class.java, Article::class.java)
+        val jsonAdapter = moshi.adapter<List<Article>>(listMyData)
+        val json = jsonAdapter.toJson(arti)
+        preferences.edit().putString("WRITTEN_PREFS",json).apply()
     }
 
 
@@ -128,5 +214,15 @@ class ViewArticleFragment : Fragment(R.layout.fragment_view_article) {
                 Article()
             }
         } ?: Article()
+
+    private fun getWritedArticles() =
+        preferences.getString("WRITTEN_PREFS", null)?.let {
+            return@let try {
+                val listMyData = Types.newParameterizedType(List::class.java, Article::class.java)
+                moshi.adapter<MutableList<Article>>(listMyData).fromJson(it)
+            } catch (e: Exception) {
+                mutableListOf()
+            }
+        } ?: mutableListOf()
 
 }

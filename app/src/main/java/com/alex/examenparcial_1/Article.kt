@@ -10,7 +10,8 @@ class Article(var id: Int? = null,
               var Tittle: String = "",
               var Descrip: String = "",
               var aImage: Int? = null,
-              var writter: String = ""): Parcelable {
+              var writter: String = "",
+              var liked: MutableList<String>? = null): Parcelable {
 
     companion object {
         val articles = mutableListOf(
